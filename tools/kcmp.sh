@@ -10,8 +10,9 @@
 KEYS_SENDER=${1:?'ERROR: KEYS_SENDER not provided'}
 KEYS_APP=${2:?'ERROR: KEYS_APP not provided'}
 
-# Command for running keys - defaults to keys cli in PATH
-KEYS=${KEYS_CMD:-'keys'}
+# Command for running keys - defaults to running keys cli via uvx (uv tool run)
+# https://github.com/astral-sh/uv
+KEYS=${KEYS_CMD:-'uvx --from keyslib keys'}
 
 # Local state dir for storing fzf query history - defaults to ~/.local/state/keyslib
 KEYS_XDG=${XDG_STATE_HOME:-"${HOME}/.local/state"}
@@ -75,5 +76,5 @@ fi
 
 # Send selection, using special bind parsing for fzf, see the cli help for more
 # info
-"${KEYS}" send --fzf "${KEYS_SENDER}" "${KEYS_CMD}"
+${KEYS} send --fzf "${KEYS_SENDER}" "${KEYS_CMD}"
 

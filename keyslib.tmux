@@ -2,13 +2,14 @@
 
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "$CURRENT_DIR/tmux/variables.sh"
-
+default_complete_key="Space"
+complete_key=$(tmux show-option -gqv "@keys_complete_key")
+complete_key=${logging_key:-$default_complete_key}
 
 main() {
-    tmux bind-key -T prefix "$completion_key" run-shell "$CURRENT_DIR/tmux/keymux.sh"
+    tmux bind-key -T prefix "$complete_key" run-shell "$CURRENT_DIR/tools/keymux.sh"
     # TODO: This should be enabled via a separate option
-    tmux bind-key -T root "C-$completion_key" run-shell "$CURRENT_DIR/tmux/keymux.sh"
+    tmux bind-key -T root "C-$complete_key" run-shell "$CURRENT_DIR/tools/keymux.sh"
 }
 
 main
