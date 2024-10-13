@@ -52,6 +52,9 @@ def tmux_send_sequence(sequence: str) -> None:
         run("tmux attach -f 'ignore-size'", asynchronous=True, pty=True),
     )
 
+    # Runner does not set stdout/stderr until it is running something:
+    # https://github.com/pyinvoke/invoke/blob/506bf4e020c177a03cf4257a22969bad0845e4ee/invoke/runners.py#L447
+    # pyre-ignore[16]: `invoke.runners.Runner` has no attribute `stdout`.
     while not tmux_proc.runner.stdout:
         # Busy wait until tmux attaches and returns current stdout
         pass
@@ -74,6 +77,9 @@ def tmux_send_sequence(sequence: str) -> None:
 
     sleep(1)
     try:
+        # Runner does not set pid until it is running something:
+        # https://github.com/pyinvoke/invoke/blob/506bf4e020c177a03cf4257a22969bad0845e4ee/invoke/runners.py#L1314
+        # pyre-ignore[16]: `invoke.runners.Runner` has no attribute `pid`.
         kill(tmux_proc.runner.pid, SIGTERM)
     except ProcessLookupError:
         # Process is probably already gone
@@ -338,7 +344,7 @@ def keys_build(ctx: Context, _keys: Optional[str]) -> None:
     """
 
     if not _keys:
-        _keys = ctx.keys_dir / "keys.py"
+        _keys = str(ctx.keys_dir / "keys.py")
 
     build_binds(_keys)
 

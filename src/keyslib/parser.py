@@ -84,6 +84,7 @@ class Expr(metaclass=ABCMeta):
             # Return a fresh expression instance as normal
             return super().__new__(cls)
 
+    # pyre-ignore[56]: Pyre doesn't yet support decorators with ParamSpec applied to generic functions
     @abstractclassmethod
     def from_str(cls, sequence: str) -> Expr:
         """Parse an Expression from a text sequence.
@@ -561,9 +562,9 @@ class Doctag(Expr):
     sequence. It consists of a # (<hash>) symbol, an optional group name, and an
     optional Docstring, which describes the key sequence:
 
-    Doctag("#window Create window") == "# Create window"
+    Doctag("#window Create window") == "#window Create window"
     Doctag(group="window", docstring=Docstring(description="Create window"))
-        == "# Create window"
+        == "#window Create window"
 
     If no group is provided, the command will be assigned the default group.
 
