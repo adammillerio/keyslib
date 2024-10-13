@@ -1,3 +1,50 @@
+[project]
+name = "keyslib"
+version = "0.0.1"
+license = {file = "LICENSE"}
+description = "a library and cli for key bindings"
+authors = [
+    {name = "Adam Miller", email = "miller@adammiller.io"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1.7",
+    "invoke>=2.2.0",
+    "pyre-extensions>=0.0.31",
+    "python-dotenv>=1.0.1",
+]
+
+[project.urls]
+Repository = "https://github.com/adammillerio/keyslib"
+
+[project.optional-dependencies]
+dev = [
+    "pyre-check>=0.9.22",
+    "ruff>=0.6.9",
+    "testslide>=2.7.1",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pyre-check>=0.9.22",
+    "ruff>=0.6.9",
+    "testslide>=2.7.1",
+]
+
+[project.scripts]
+keys = "keyslib.cli.cli:keys"
+
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
