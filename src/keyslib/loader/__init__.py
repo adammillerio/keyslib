@@ -31,7 +31,7 @@ def parse_bind(bind: str) -> KeySequence:
 
 
 @cache
-def load_binds(app: str, keys_dir: Path = None) -> KeyBinds:
+def load_binds(app: str, keys_dir: Path) -> KeyBinds:
     binds = defaultdict(dict)
     binds_path = keys_dir / "binds" / f"{app}.env"
 
