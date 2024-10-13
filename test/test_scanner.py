@@ -78,7 +78,7 @@ class KeysScannerTests(TestCase):
 
     def test_docstring(self) -> None:
         self.assertEqual(
-            Scanner.scan("(ctrl)b+c # create a <window"),
+            Scanner.scan("(ctrl)b+c #window create a <window"),
             [
                 Token(type=TokenType.LEFT_PAREN),
                 Token(type=TokenType.MODIFIER, value=ModifierType.CTRL),
@@ -86,7 +86,8 @@ class KeysScannerTests(TestCase):
                 Token(type=TokenType.PRIMARY, value="b"),
                 Token(type=TokenType.PLUS),
                 Token(type=TokenType.PRIMARY, value="c"),
-                Token(type=TokenType.DOCSTRING, value=" create a <window"),
+                Token(type=TokenType.DOCTAG, value="window"),
+                Token(type=TokenType.DOCSTRING, value="create a <window"),
                 EOF,
             ],
         )

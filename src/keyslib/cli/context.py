@@ -21,7 +21,7 @@ class Context:
         """Initialize a Click CLI context."""
 
         self.debug = False
-        self.keys_dir = Path.home() / ".config/keyslib"
+        self.keys_dir: Path = Path.home() / ".config/keyslib"
 
 
 # Function decorator to pass global CLI context into a function.
